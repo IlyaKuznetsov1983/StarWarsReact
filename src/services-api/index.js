@@ -1,1 +1,1 @@
-export {default} from './service-api'
+export {default} from './services-api'

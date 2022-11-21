@@ -1,69 +1,68 @@
 import React, {Component} from 'react';
 import ServicesApi from "../../services-api";
 
-
 class PersonDetails extends Component {
-
 
     services = new ServicesApi()
 
-    state ={
-        item: null
+    state = {
+        item: null,
+        image: null,
     }
 
     componentDidMount() {
         this.updateItem()
     }
 
-
-    componentDidUpdate(prevProps, prevState,s) {
-     if (this.props.selectedItem !== prevProps.selectedItem){
-         this.updateItem()
-     }
-
-
+    componentDidUpdate(prevProps, prevState, s) {
+        if (this.props.selectedItem !== prevProps.selectedItem) {
+            this.updateItem()
+        }
     }
 
-
     updateItem() {
-        const {selectedItem} =this.props
-        if(!selectedItem) return
+        const {selectedItem} = this.props
+        if (!selectedItem) return
         this.services.getPerson(selectedItem)
             .then(item => {
-                this.setState({item})
+                this.setState({
+                    item,
+                    image: this.services.getPersonImage(item)
+                })
             })
     }
 
+
     render() {
+        const {item, image} = this.state
 
-        const{item} = this.state
-
-        if (!item){
-            return<span> {}Select your side ! </span>
+        if (!item) {
+            return <span>Выберите элемент из списка!</span>
         }
 
+        const {name,birthYear, eyeColor, gender } = item
 
         return (
-
-        <div>h
-            <h4>
-                Name
-            </h4>
-            <ul className='list-group list-group-flush detail'>
-                <li className='list-group-item'>
-                    <span className='term'>Population:</span>
-                    <span>1111111111111</span>
-                </li>
-                <li className='list-group-item'>
-                    <span className='term'>Rotation Period:</span>
-                    <span>222222222222222</span>
-                </li>
-                <li className='list-group-item'>
-                    <span className='term'>Diameter:</span>
-                    <span>33333333333333</span>
-                </li>
-            </ul>
-        </div>
+            <div>
+                <img className='rounded float-start planet'
+                     src={image}
+                     alt=""/>
+                <h4>{name}</h4>
+                <ul className='list-group list-group-flush detail'>
+                    <li className='list-group-item'>
+                        <span className='term'>Gender:</span>
+                        <span>{gender}</span>
+                    </li>
+                    <li className='list-group-item'>
+                        <span className='term'>BY:</span>
+                        <span>{birthYear}</span>
+                    </li>
+                    <li className='list-group-item'>
+                        <span className='term'>Eye Color:</span>
+                        <span>{eyeColor}</span>
+                    </li>
+                </ul>
+            </div>
         );
     }
 }

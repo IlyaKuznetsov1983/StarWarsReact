@@ -1,29 +1,26 @@
 import React, {Component} from 'react';
 import './random-planet-block.css'
-import serviceApi from "../../../services-api";
-import Spinner from "./spiner/spinner";
-import Error from "../../app/error/error";
-
+import servicesApi from "../../services-api";
+import Spinner from "../spinner";
+import Error from "../error";
 
 class RandomPlanetBlock extends Component {
-    services = new serviceApi()
+    services = new servicesApi()
 
     state = {
         planet: {},
         isLoading: true,
-        hasError: false
+        hasError: false,
     }
-
 
     componentDidMount() {
         this.fetchPlanet()
-        this.intervalId = setInterval(this.fetchPlanet, 25000)
+        this.intervalId = setInterval(this.fetchPlanet, 150000)
     }
 
     componentWillUnmount() {
-        clearInterval(this.intervalId)
+       clearInterval(this.intervalId)
     }
-
 
     setPlanet = (planet) => {
         this.setState({
@@ -47,7 +44,6 @@ class RandomPlanetBlock extends Component {
             .catch(this.setError)
     }
 
-
     render() {
         const {planet, isLoading, hasError} = this.state
 
@@ -56,28 +52,26 @@ class RandomPlanetBlock extends Component {
         const content = !(isLoading || hasError) && <RandomPlanet planet={planet}/>
 
         return (
-            <div>
+            <div className='container'>
+                {spinner}
                 {content}
                 {error}
-                {spinner}
             </div>
-        )
+        );
     }
-}
 
+
+};
 
 const RandomPlanet = ({planet}) => {
     const {name, population, diameter, rotationPeriod, id} = planet
 
     return (
-        <React.Fragment>
-            <div className='picture-container'>
-                <img className="img-fluid img-thumbnail"
-                     src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
-            </div>
-            <h4>
-                {name}
-            </h4>
+        <div className=' random-planet-block'>
+            <img className='rounded float-start planet'
+                 src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+                 alt=""/>
+            <h4>{name}</h4>
             <ul className='list-group list-group-flush detail'>
                 <li className='list-group-item'>
                     <span className='term'>Population:</span>
@@ -92,10 +86,10 @@ const RandomPlanet = ({planet}) => {
                     <span>{diameter}</span>
                 </li>
             </ul>
-
-        </React.Fragment>
-    );
+        </div>
+    )
 }
 
 
 export default RandomPlanetBlock;
+

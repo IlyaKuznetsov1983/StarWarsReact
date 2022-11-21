@@ -1,43 +1,42 @@
 import React, {Component} from 'react';
-import serviceApi from "../../services-api";
-import Spinner from "../header/random-planet-block/spiner";
-import Error from "../app/error";
+import Spinner from "../spinner";
+import Error from "../error";
 
 class ItemList extends Component {
 
-    services = new serviceApi()
-
     state = {
-        peopleList: null
+        itemList: null,
+        hasError: false
     }
 
     componentDidMount() {
-        this.services.getAllPeoples()
-            .then(peopleList => {
+        const {getData} = this.props
+
+        getData()
+            .then(itemList => {
                 this.setState({
-                    peopleList
+                    itemList
                 })
             })
+            .catch((e) => console.log(e))
     }
 
-    renderItems(peopleList) {
-        return peopleList.map(({id, name}) => {
-            return (
-                <li className='list-group-item'
-                        key={id}
-                    onClick={() => this.props.onItemSelected(id)}
-                >
-                {name}
-            </li>);
+    renderItems(itemList) {
+        return itemList.map((item) => {
+            const label = this.props.renderList(item)
+            return (<li className='list-group-item'
+                        key={item.id}
+                        onClick={() => this.props.onItemSelected(item.id)}
+            >
+                {label}
+            </li>)
+
         })
     }
 
     static getDerivedStateFromError(error) {
-        console.log('getDerivedStateFromError', error)
         return {hasError: true}
-
     }
-
 
     componentDidCatch(error, errorInfo) {
         console.log('componentDidCatch', error, errorInfo)
@@ -45,9 +44,10 @@ class ItemList extends Component {
 
 
     render() {
-        const {peopleList, hasError} = this.state
 
-        if (!peopleList) {
+        const {itemList, hasError} = this.state
+
+        if (!itemList) {
             return <Spinner/>
         }
 
@@ -55,15 +55,18 @@ class ItemList extends Component {
             return <Error/>
         }
 
-        const items = this.renderItems(peopleList)
+        const items = this.renderItems(itemList)
 
-        return <ul className='list-group'>
-            {items}
-        </ul>
+        return (
+            <div>
+                <ul className='list-group'>
+                    {items}
+                </ul>
+            </div>
 
-
+        );
     }
-
 }
 
 export default ItemList;
+
