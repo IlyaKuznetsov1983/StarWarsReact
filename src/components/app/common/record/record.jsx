@@ -1,18 +1,18 @@
 import React from 'react';
 
-class Record = () {
-    render() {
+class Record = ({item, label, value}) => {
+
         return (
             <div>
                 <li className='list-group-item'>
-                    <span>
-
-                    </span>
+                    <span className='term'>{label}</span>
+                  <span>{item[value]}
+                  </span>
 
                 </li>
             </div>
         );
     }
-}
+
 
 export default Record;

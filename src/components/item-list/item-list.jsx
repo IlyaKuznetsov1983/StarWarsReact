@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import {WithDataHoc} from "../hoc";
 
-class ItemList extends Component {
+const ItemList = (props) => {
+    const {children: renderLabel, onItemSelected, data} = props
 
-    renderItems(itemList) {
-        return itemList.map((item) => {
-            const label = this.props.children(item)
-            return (<li className='list-group-item'
-                        key={item.id}
-                        onClick={() => this.props.onItemSelected(item.id)}
+
+
+    const  items = data.map((item) => {
+        const {id} = item;
+        const label = renderLabel(item);
+        return (
+            <li className='list-group-item'
+                key={item.id}
+                onClick={() => onItemSelected(item.id)}
             >
                 {label}
-            </li>)
+            </li>
+        )
 
-        })
-    }
+    })
 
-    render() {
-        const items = this.renderItems(this.props.data)
         return (
             <div>
                 <ul className='list-group'>
@@ -26,8 +28,8 @@ class ItemList extends Component {
             </div>
 
         );
-    }
+
 }
 
-export default  WithDataHoc(ItemList);
+export default  (ItemList);
 

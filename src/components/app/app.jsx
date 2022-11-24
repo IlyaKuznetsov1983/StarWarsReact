@@ -6,6 +6,8 @@ import ServicesApi from "../../services-api";
 import RandomPlanetBlock from "../random-planet-block";
 import Header from "../header";
 import ErrorBoundary from "../error-boundary";
+import {WithDataHoc} from "../hoc";
+import {PersonList} from "../sw-components";
 
 class App extends Component {
 
@@ -25,6 +27,7 @@ class App extends Component {
             <Header/>
             <RandomPlanetBlock/>
             <PeoplePage/>
+            <PersonList/>
         </ErrorBoundary>)
     }
 
