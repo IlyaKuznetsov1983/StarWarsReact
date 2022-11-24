@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ItemDetails from "../item-details";
-import ItemList from "../item-list";
+import ItemList from "../../common/item-list";
 import ServicesApi from "../../services-api";
 import ErrorBoundary from "../error-boundary";
 import Record from "../common/record";

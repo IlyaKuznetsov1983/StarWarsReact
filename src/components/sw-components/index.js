@@ -4,10 +4,16 @@ import {
         StarshipList
 } from './sw-item-list'
 
+
+import {
+        PersonDetails
+} from "./sw-details";
+
 export {
 
         PersonList,
         PlanetList,
-        StarshipList
+        StarshipList,
+    PersonDetails
 
 }

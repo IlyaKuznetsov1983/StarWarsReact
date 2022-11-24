@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {WithDataHoc} from "../hoc";
+import {WithDataHoc} from "../../components/hoc";
 
 const ItemList = (props) => {
     const {children: renderLabel, onItemSelected, data} = props

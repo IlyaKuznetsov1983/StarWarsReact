@@ -1,13 +1,11 @@
-import React, {Component, useState} from 'react'
-
-import ItemList from "../item-list";
-import PeoplePage from "../people-page";
+import React, {Component} from 'react'
 import ServicesApi from "../../services-api";
 import RandomPlanetBlock from "../random-planet-block";
 import Header from "../header";
 import ErrorBoundary from "../error-boundary";
-import {WithDataHoc} from "../hoc";
-import {PersonList} from "../sw-components";
+import {PersonDetails, PersonList} from "../sw-components";
+import {ServiceProvider} from "../context";
+import Row from "./common/row";
 
 class App extends Component {
 
@@ -24,10 +22,12 @@ class App extends Component {
 
     render() {
         return (<ErrorBoundary>
-            <Header/>
-            <RandomPlanetBlock/>
-            <PeoplePage/>
-            <PersonList/>
+            <ServiceProvider value={this.services}>
+                <Header/>
+                <RandomPlanetBlock/>
+                <Row left={<PersonList onItemSelected={this.onItemSelected}/>}
+                     right={<PersonDetails selectedItem={this.state.selectedItem}/>}/>
+            </ServiceProvider>
         </ErrorBoundary>)
     }
 

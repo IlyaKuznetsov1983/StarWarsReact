@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Record = ({item, label, value}) => {
+const Record = ({item, label, value}) => {
 
         return (
             <div>
