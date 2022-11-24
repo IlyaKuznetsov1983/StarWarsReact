@@ -5,6 +5,7 @@ import PeoplePage from "../people-page";
 import ServicesApi from "../../services-api";
 import RandomPlanetBlock from "../random-planet-block";
 import Header from "../header";
+import ErrorBoundary from "../error-boundary";
 
 class App extends Component {
 
@@ -20,38 +21,11 @@ class App extends Component {
 
 
     render() {
-        return (<div>
+        return (<ErrorBoundary>
             <Header/>
-            <RandomPlanetBlock/>}
-
-
+            <RandomPlanetBlock/>
             <PeoplePage/>
-                     <br/>
-            <div className={'row mb2'}>
-                <div className={'col-md-6'}>
-                    <ItemList
-                        onItemSelected={this.onItemSelected}
-                        getData={this.services.getAllPlanets}
-                        renderList={(item) => <span>{item.diameter}<button>!!!!!!!!!</button></span>   }
-
-                    />
-                </div>
-            </div>
-            <br/>
-            <div className={'row mb2'}>
-                <div className={'col-md-6'}>
-                    <ItemList
-                        onItemSelected={this.onItemSelected}
-                        getData={this.services.getAllStarShips}
-                        renderList={(item) => `${item.model}` }
-
-                    />
-                </div>
-            </div>
-
-            {/*<PeoplePage/>*/}
-            {/*<PeoplePage/>*/}
-        </div>)
+        </ErrorBoundary>)
     }
 
 }
