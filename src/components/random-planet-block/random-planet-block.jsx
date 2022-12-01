@@ -13,6 +13,9 @@ class RandomPlanetBlock extends Component {
         hasError: false,
     }
 
+    static default
+
+
     componentDidMount() {
         this.fetchPlanet()
         this.intervalId = setInterval(this.fetchPlanet, 150000)
