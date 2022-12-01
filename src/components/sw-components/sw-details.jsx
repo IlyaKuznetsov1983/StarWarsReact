@@ -1,6 +1,7 @@
 import React from "react";
+import {compose, WithItemDetailsDataHoc, WithServicesHoc} from "../hoc";
+import ItemList from "../common/item-list";
 import ItemDetails from "../common/item-details";
-import {WithItemDetailsDataHoc, WithServicesHoc} from "../hoc";
 
 const renderPersonDetails = () => ([
     {label: 'Gender:', value: 'gender'},
@@ -35,20 +36,24 @@ const mapStarshipMethodToProps = (service) => ({
     getImageUrl: service.getStarshipImage
 })
 
-export const PersonDetails = WithServicesHoc(
-    WithItemDetailsDataHoc(ItemDetails, renderPersonDetails),
-    mapPersonMethodToProps
-)
+export const PersonDetails = compose(
+    WithServicesHoc(mapPersonMethodToProps),
+    WithItemDetailsDataHoc(renderPersonDetails),
+)(ItemDetails)
 
-export const PlanetDetails = WithServicesHoc(
-    WithItemDetailsDataHoc(ItemDetails, renderPlanetDetails),
-    mapPlanetMethodToProps
-)
 
-export const StarshipDetails = WithServicesHoc(
-    WithItemDetailsDataHoc(ItemDetails, renderStarshipsDetails),
-    mapStarshipMethodToProps
-)
+export const PlanetDetails = compose(
+    WithServicesHoc(mapPlanetMethodToProps),
+    WithItemDetailsDataHoc(renderPlanetDetails)
+)(ItemDetails)
+
+
+export const StarshipDetails = compose(
+    WithServicesHoc(mapStarshipMethodToProps),
+    WithItemDetailsDataHoc(renderStarshipsDetails)
+)(ItemDetails)
+
+
 
 
 

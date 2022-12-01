@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Record from "../common/record";
 
 
-export const WithItemDetailsDataHoc = (ViewComponent, renderChildren) => {
+export const WithItemDetailsDataHoc = (renderChildren) => (ViewComponent) => {
     return class extends Component {
 
         state = {

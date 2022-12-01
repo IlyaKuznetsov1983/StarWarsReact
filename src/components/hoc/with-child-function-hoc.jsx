@@ -1,6 +1,6 @@
 import React from "react";
 
-export const WithChildFunctionHoc = (Wrapped, fn) => {
+export const WithChildFunctionHoc = (fn) => (Wrapped) => {
     return (props) => {
         return (
             <Wrapped {...props}>

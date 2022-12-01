@@ -1,6 +1,6 @@
 import {ServiceConsumer} from "../context";
 
-export const WithServicesHoc = (Wrapper, mapMethodToProps) => {
+export const WithServicesHoc = (mapMethodToProps) => (Wrapper) => {
     return (props) => {
         return <ServiceConsumer>
             {

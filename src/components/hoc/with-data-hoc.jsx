@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Spinner from "../spinner";
 
-export const WithDataHoc = (ViewComponent, getData) => {
+export const WithDataHoc = (ViewComponent) => {
     return class extends Component {
 
         state = {
@@ -9,6 +9,7 @@ export const WithDataHoc = (ViewComponent, getData) => {
         }
 
         componentDidMount() {
+            const {getData} = this.props
             getData()
                 .then(data => {
                     this.setState({data})
